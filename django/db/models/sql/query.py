@@ -1168,9 +1168,10 @@ class Query(object):
                 parts, opts, alias, can_reuse=can_reuse, allow_many=allow_many)
 
             # Prevent iterator from being consumed by check_related_objects()
+            _value = value
             if isinstance(value, Iterator):
-                value = list(value)
-            self.check_related_objects(field, value, opts)
+                _value = list(value)
+            self.check_related_objects(field, _value, opts)
 
             # split_exclude() needs to know which joins were generated for the
             # lookup parts
